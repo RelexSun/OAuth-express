@@ -1,4 +1,6 @@
 const express = require("express");
+const groceriesRoutes = require("./routes/gorceries");
+const marketsRoutes = require("./routes/markets");
 
 const app = express();
 const PORT = 3001;
@@ -14,37 +16,10 @@ app.use((req, res, next) => {
   next();
 });
 
+// a good practice is to prefix '/api/v1'
+app.use("/api/v1/groceries", groceriesRoutes);
+app.use("/api/v1/markets", marketsRoutes);
+
 app.listen(PORT, () => {
   console.log(`Running express server on port ${PORT}!!!`);
-});
-
-const groceriesList = [
-  {
-    item: "milk",
-    quantity: 2,
-  },
-  {
-    item: "cereal",
-    quantity: 1,
-  },
-  {
-    item: "coke",
-    quantity: 3,
-  },
-];
-
-app.get("/groceries", (req, res) => {
-  res.send(groceriesList);
-});
-
-app.get("/groceries/:item", (req, res) => {
-  const { item } = req.params;
-  const gorceriesItem = groceriesList.find((g) => g.item === item);
-  res.send(gorceriesItem);
-});
-
-app.post("/groceries", (req, res) => {
-  console.log(req.body);
-  groceriesList.push(req.body);
-  res.send(201);
 });
