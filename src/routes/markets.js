@@ -30,10 +30,17 @@ const supermarkets = [
   },
 ];
 
-router.get("/", (req, res) => {
+// route parameters are for identifiying resourses
+// query parameters are for filter out or sort out resourses
+
+// review this part
+router.get("", (req, res) => {
   const { miles } = req.query;
   const parsedMiles = parseInt(miles);
-  if (miles && isNaN(parsedMiles)) {
+
+  if (!isNaN(parsedMiles)) {
+    const filteredStores = supermarkets.filter((s) => s.miles <= parsedMiles);
+    res.send(filteredStores);
   } else res.send(supermarkets);
 });
 
