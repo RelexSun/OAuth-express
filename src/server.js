@@ -1,4 +1,5 @@
 const express = require("express");
+const cookieParser = require("cookie-parser");
 const groceriesRoutes = require("./routes/gorceries");
 const marketsRoutes = require("./routes/markets");
 
@@ -10,6 +11,8 @@ app.use(express.json());
 
 // this middleware allow us to request body in URL-encoded format.  Parsing data
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieParser());
 
 app.use((req, res, next) => {
   console.log(`${req.method}: ${req.url}`);
