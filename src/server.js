@@ -1,5 +1,6 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const session = require("express-session");
 const groceriesRoutes = require("./routes/gorceries");
 const marketsRoutes = require("./routes/markets");
 
@@ -13,6 +14,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
+app.use(
+  session({
+    secret: "AWLIOUEGFAGVDLJKSABVMCBVPAOWURGOASUDVH",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 app.use((req, res, next) => {
   console.log(`${req.method}: ${req.url}`);
