@@ -3,6 +3,7 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const groceriesRoutes = require("./routes/gorceries");
 const marketsRoutes = require("./routes/markets");
+const authRoutes = require("./routes/auth");
 
 const app = express();
 const PORT = 3001;
@@ -30,6 +31,7 @@ app.use((req, res, next) => {
 // a good practice is to prefix '/api/v1'
 app.use("/api/v1/groceries", groceriesRoutes);
 app.use("/api/v1/markets", marketsRoutes);
+app.use("/api/v1/auth", authRoutes);
 
 app.listen(PORT, () => {
   console.log(`Running express server on port ${PORT}!!!`);

@@ -19,10 +19,19 @@ const groceriesList = [
 
 // Don't save sensitive data as cookies
 // add cookies and set expire cookies time
+// router.get("/", (req, res) => {
+//   res.cookie("visited", true, {
+//     maxAge: 60000,
+//   });
+//   res.send(groceriesList);
+// });
+
+router.use((req, res, next) => {
+  if (req.session.user) next();
+  else res.send(401);
+});
+
 router.get("/", (req, res) => {
-  res.cookie("visited", true, {
-    maxAge: 60000,
-  });
   res.send(groceriesList);
 });
 
