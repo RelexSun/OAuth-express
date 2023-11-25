@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const User = require("../database/schemas/userSchema");
+const { hashPassword } = require("../utils/helpers");
 
 const router = Router();
 
@@ -26,13 +27,12 @@ router.post("/register", async (req, res) => {
 
     if (userDB) {
       res.status(400).send({ msg: "User already exist" });
-
     } else {
+      const password = hashPassword(req.body.password);
+      console.log(password);
       const newUser = await User.create({ username, password, email });
-      newUser.save();
-      res.send(newUser);
+      res.send(201);
     }
-
   } catch (err) {
     console.log("error occured", err);
     res.status(500).send("Internal Server Error");
