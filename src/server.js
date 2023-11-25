@@ -14,7 +14,7 @@ const PORT = 3001;
 app.use(express.json());
 
 // this middleware allow us to request body in URL-encoded format.  Parsing data
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded());
 
 app.use(cookieParser());
 app.use(
